@@ -9,9 +9,21 @@ SUMMONER_ID_BY_PUUID = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/
 # This shit might include all queues? e.g solo/flex, but I'm not a fucking pussy so don't have flex games.
 # If this breaks with some users, it's darwinism and shouldn't be fixed. 
 RANKED_BY_SUMMONER_ID = "https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner"
+MATCH_IDS_BY_PUUID = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid"
+MATCH_BY_ID = "https://americas.api.riotgames.com/lol/match/v5/matches"
 
 def get_puuid_by_riotid(*, name: str, tag_line: str):
     url = f"{ACCOUNT_BY_RIOT_ID}/{name}/{tag_line}"
+    r = requests.get(url, headers={"X-Riot-Token": settings.RIOT_API_KEY})
+    return r.json()
+
+def get_match_ids_by_puuid(*, puuid: str):
+    url = f"{MATCH_IDS_BY_PUUID}/{puuid}"
+    r = requests.get(url, headers={"X-Riot-Token": settings.RIOT_API_KEY})
+    return r.json()
+
+def get_match_by_id(*, id: str):
+    url = f"{MATCH_BY_ID}/{id}"
     r = requests.get(url, headers={"X-Riot-Token": settings.RIOT_API_KEY})
     return r.json()
 

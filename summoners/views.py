@@ -31,3 +31,11 @@ def insert_summoner(request):
         
 
         return HttpResponse("dicks")
+
+def test(request):
+    return render(request, "base.html")
+
+def summoner(request, name, tag_line):
+    summoner = selectors.select_by_riotid(name=name, tag_line=tag_line)[0]
+    standing = selectors.select_standing_by_summoner(local_summoner_id=summoner.id)[0]
+    return render(request, "summoner.html", {"summoner": summoner, "standing": standing})

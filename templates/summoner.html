@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block template %}
+
+<div class="summoner-container w-1/2 mx-auto">
+    <!-- Icon, name, etc. Top bit. -->
+    <div class="flex flex-row justify-between border-2 border-red-500 p-2">
+        <div class="flex flex-row space-x-6">
+            <div>
+                <img class="w-40 rounded-full"
+                    src="https://ddragon.leagueoflegends.com/cdn/13.24.1/img/profileicon/{{summoner.profile_icon}}.png"/>
+            </div>
+            <div class="flex flex-col space-y-2 pt-8">
+                <div class="text-2xl">{{summoner.game_name}} #{{summoner.tag_line}}</div>
+                <div class="">{{standing.tier}} {{standing.rank}} {{standing.lp}}LP</div>
+            </div>
+        </div>
+
+        <div class="flex justify-end align-end pt-8">
+            {{summoner.puuid}}
+        </div>
+    </div>
+</div>
+{% endblock %}
