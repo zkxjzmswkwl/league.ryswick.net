@@ -38,4 +38,5 @@ def test(request):
 def summoner(request, name, tag_line):
     summoner = selectors.select_by_riotid(name=name, tag_line=tag_line)[0]
     standing = selectors.select_standing_by_summoner(local_summoner_id=summoner.id)[0]
+    service.get_match_history_for(puuid=summoner.puuid)
     return render(request, "summoner.html", {"summoner": summoner, "standing": standing})

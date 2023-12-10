@@ -18,7 +18,7 @@ def get_puuid_by_riotid(*, name: str, tag_line: str):
     return r.json()
 
 def get_match_ids_by_puuid(*, puuid: str):
-    url = f"{MATCH_IDS_BY_PUUID}/{puuid}"
+    url = f"{MATCH_IDS_BY_PUUID}/{puuid}/ids"
     r = requests.get(url, headers={"X-Riot-Token": settings.RIOT_API_KEY})
     return r.json()
 
@@ -65,3 +65,10 @@ def commit_ladder_standing(*, local_summoner_id: int, summoner_id: str):
             tier=queue.get("tier"), rank=queue.get("rank"), lp=queue.get("leaguePoints"),
             wins=queue.get("wins"), losses=queue.get("losses"), veteran=queue.get("veteran"),
             inactive=queue.get("inactive"), fresh_blood=queue.get("freshBlood"), hot_streak=queue.get("hotStreak"))
+
+def get_match_history_for(*, puuid: str):
+    match_ids = get_match_ids_by_puuid(puuid=puuid)
+    match_data = get_match_by_id(id=match_ids[0])
+    participants = match_data.get("metadata").get("participants")
+    for participant in participants:
+        print(get_summonerid_by_puuid(puuid=participant))
